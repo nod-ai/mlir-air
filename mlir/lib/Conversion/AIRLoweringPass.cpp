@@ -6,8 +6,6 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "PassDetail.h"
-
 #include "air/Conversion/AIRLoweringPass.h"
 #include "air/Conversion/AIRPipeline.h"
 #include "air/Dialect/AIR/AIRDialect.h"
@@ -930,7 +928,7 @@ LogicalResult ScfParToAffineForConversion(Operation *op) {
   return success();
 }
 
-class AIRLoweringPass : public air::AIRLoweringBase<AIRLoweringPass> {
+class AIRLoweringPass : public air::impl::AIRLoweringBase<AIRLoweringPass> {
 
 public:
   AIRLoweringPass() = default;
@@ -1352,7 +1350,7 @@ private:
 };
 
 class AIRPipelineToAffinePass
-    : public air::AIRPipelineToAffineBase<AIRPipelineToAffinePass> {
+    : public air::impl::AIRPipelineToAffineBase<AIRPipelineToAffinePass> {
 
 public:
   AIRPipelineToAffinePass() = default;
