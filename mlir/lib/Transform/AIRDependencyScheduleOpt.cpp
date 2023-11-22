@@ -6,8 +6,6 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "PassDetail.h"
-
 #include "air/Dialect/AIR/AIRDialect.h"
 #include "air/Transform/AIRDependencyScheduleOpt.h"
 #include "air/Util/Dependency.h"
@@ -1634,7 +1632,7 @@ private:
 };
 
 class AIRHoistDmaInAccumPattern
-    : public xilinx::air::AIRHoistDmaInAccumPatternBase<
+    : public xilinx::air::impl::AIRHoistDmaInAccumPatternBase<
           AIRHoistDmaInAccumPattern> {
 
 public:
@@ -1660,7 +1658,7 @@ private:
 };
 
 class AIRBroadcastDetection
-    : public xilinx::air::AIRBroadcastDetectionBase<AIRBroadcastDetection> {
+    : public xilinx::air::impl::AIRBroadcastDetectionBase<AIRBroadcastDetection> {
 
 public:
   AIRBroadcastDetection() = default;
@@ -1679,7 +1677,7 @@ private:
 };
 
 class AIRPruneLinalgGenericInputDma
-    : public xilinx::air::AIRPruneLinalgGenericInputDmaBase<
+    : public xilinx::air::impl::AIRPruneLinalgGenericInputDmaBase<
           AIRPruneLinalgGenericInputDma> {
 
 public:
@@ -1699,7 +1697,7 @@ private:
 };
 
 class AIRAnnotateFrontAndBackOpsInForPattern
-    : public xilinx::air::AIRAnnotateFrontAndBackOpsInForPatternBase<
+    : public xilinx::air::impl::AIRAnnotateFrontAndBackOpsInForPatternBase<
           AIRAnnotateFrontAndBackOpsInForPattern> {
 
 public:
@@ -1726,7 +1724,7 @@ private:
 };
 
 class AIRHoistMemallocInForPattern
-    : public xilinx::air::AIRHoistMemallocInForPatternBase<
+    : public xilinx::air::impl::AIRHoistMemallocInForPatternBase<
           AIRHoistMemallocInForPattern> {
 
 public:
@@ -1752,7 +1750,7 @@ private:
 };
 
 class AIRConstructPingPongDependencyPattern
-    : public xilinx::air::AIRConstructPingPongDependencyPatternBase<
+    : public xilinx::air::impl::AIRConstructPingPongDependencyPatternBase<
           AIRConstructPingPongDependencyPattern> {
 
 public:
@@ -1779,7 +1777,7 @@ private:
 };
 
 class AIRUnrollLoopForPipeliningPattern
-    : public xilinx::air::AIRUnrollLoopForPipeliningPatternBase<
+    : public xilinx::air::impl::AIRUnrollLoopForPipeliningPatternBase<
           AIRUnrollLoopForPipeliningPattern> {
 
 public:
@@ -1806,7 +1804,7 @@ private:
 };
 
 class AIRHoistOpsNotUsingPingPongPattern
-    : public xilinx::air::AIRHoistOpsNotUsingPingPongPatternBase<
+    : public xilinx::air::impl::AIRHoistOpsNotUsingPingPongPatternBase<
           AIRHoistOpsNotUsingPingPongPattern> {
 
 public:
@@ -1833,13 +1831,16 @@ private:
 };
 
 class AIRPingPongTransformationPattern
-    : public xilinx::air::AIRPingPongTransformationPatternBase<
+    : public xilinx::air::impl::AIRPingPongTransformationPatternBase<
           AIRPingPongTransformationPattern> {
 
 public:
   AIRPingPongTransformationPattern() = default;
   AIRPingPongTransformationPattern(
       const AIRPingPongTransformationPattern &pass){};
+  AIRPingPongTransformationPattern(
+      const AIRPingPongTransformationPatternOptions &options)
+      : AIRPingPongTransformationPatternBase(options) {}
 
   void runIsolateScfForOpForPingPong(func::FuncOp funcOp) {
     MLIRContext *ctx = funcOp.getContext();
@@ -1920,7 +1921,7 @@ private:
 };
 
 class AIRLabelScfForLoopForPingPongPattern
-    : public xilinx::air::AIRLabelScfForLoopForPingPongPatternBase<
+    : public xilinx::air::impl::AIRLabelScfForLoopForPingPongPatternBase<
           AIRLabelScfForLoopForPingPongPattern> {
 
 public:
@@ -1947,7 +1948,7 @@ private:
 };
 
 class AIRLabelScfForLoopInAIRSegmentPattern
-    : public xilinx::air::AIRLabelScfForLoopInAIRSegmentPatternBase<
+    : public xilinx::air::impl::AIRLabelScfForLoopInAIRSegmentPatternBase<
           AIRLabelScfForLoopInAIRSegmentPattern> {
 
 public:
@@ -1974,7 +1975,7 @@ private:
 };
 
 class AIRUnrollChannelByFactorPattern
-    : public xilinx::air::AIRUnrollChannelByFactorPatternBase<
+    : public xilinx::air::impl::AIRUnrollChannelByFactorPatternBase<
           AIRUnrollChannelByFactorPattern> {
 
 public:
@@ -2008,7 +2009,7 @@ private:
 };
 
 class AIRDependencyScheduleOpt
-    : public AIRDependencyScheduleOptBase<AIRDependencyScheduleOpt> {
+    : public xilinx::air::impl::AIRDependencyScheduleOptBase<AIRDependencyScheduleOpt> {
 
 public:
   AIRDependencyScheduleOpt() = default;
@@ -2051,7 +2052,7 @@ private:
 };
 
 class AIREnforceLoopCarriedMemrefDeallocPattern
-    : public AIREnforceLoopCarriedMemrefDeallocPatternBase<
+    : public xilinx::air::impl::AIREnforceLoopCarriedMemrefDeallocPatternBase<
           AIREnforceLoopCarriedMemrefDeallocPattern> {
 
 public:
@@ -2087,7 +2088,7 @@ private:
 // A pass which de-alias a memref with multiple channel accesses over time, into
 // multiple memrefs. Note that this implementation is temporary and not generic.
 // TODO: Rewrite as a graph partitioning problem.
-class AIRDeAliasMemref : public AIRDeAliasMemrefBase<AIRDeAliasMemref> {
+class AIRDeAliasMemref : public xilinx::air::impl::AIRDeAliasMemrefBase<AIRDeAliasMemref> {
 
 public:
   AIRDeAliasMemref() = default;
@@ -2255,7 +2256,7 @@ private:
 
 // A pass which transform multiple channel ops into one, where the data movement
 // is time-multiplexed.
-class AIRFuseChannels : public AIRFuseChannelsBase<AIRFuseChannels> {
+class AIRFuseChannels : public xilinx::air::impl::AIRFuseChannelsBase<AIRFuseChannels> {
 
 public:
   AIRFuseChannels() = default;
@@ -2559,6 +2560,10 @@ std::unique_ptr<Pass> createAIRPruneLinalgGenericInputDma() {
 
 std::unique_ptr<Pass> createAIRPingPongTransformationPattern() {
   return std::make_unique<AIRPingPongTransformationPattern>();
+}
+std::unique_ptr<OperationPass<ModuleOp>>
+createAIRPingPongTransformationPattern(const AIRPingPongTransformationPatternOptions &options) {
+  return std::make_unique<AIRPingPongTransformationPattern>(options);
 }
 
 std::unique_ptr<Pass> createAIRLabelScfForLoopForPingPongPattern() {
