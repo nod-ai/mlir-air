@@ -10,6 +10,7 @@
 #define AIRRT_DIALECT_H
 
 #include "mlir/IR/Dialect.h"
+#include "llvm/ADT/StringRef.h"
 
 using namespace mlir;
 
@@ -18,6 +19,7 @@ namespace airrt {
 class TensorType : public Type::TypeBase<TensorType, Type, TypeStorage> {
 public:
   using Base::Base;
+  static constexpr llvm::StringLiteral name = "airrt.tensor";
 
   static TensorType get(MLIRContext *context) { return Base::get(context); }
 };
@@ -26,6 +28,7 @@ class EventType
     : public Type::TypeBase<EventType, Type, TypeStorage> {
 public:
   using Base::Base;
+  static constexpr llvm::StringLiteral name = "airrt.event";
 };
 
 } // namespace airrt

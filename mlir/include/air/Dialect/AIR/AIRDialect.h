@@ -9,16 +9,17 @@
 #ifndef MLIR_AIR_DIALECT_H
 #define MLIR_AIR_DIALECT_H
 
-#include "mlir/IR/Dialect.h"
 #include "mlir/IR/Builders.h"
 #include "mlir/IR/BuiltinOps.h"
+#include "mlir/IR/BuiltinTypes.h"
+#include "mlir/IR/Dialect.h"
 #include "mlir/IR/OpDefinition.h"
 #include "mlir/IR/OpImplementation.h"
-#include "mlir/IR/BuiltinTypes.h"
 #include "mlir/IR/TypeSupport.h"
 #include "mlir/IR/Types.h"
 #include "mlir/Interfaces/ControlFlowInterfaces.h"
 #include "mlir/Interfaces/SideEffectInterfaces.h"
+#include "llvm/ADT/StringRef.h"
 
 #include <map>
 
@@ -34,6 +35,7 @@ class AsyncTokenType
 public:
   // Used for generic hooks in TypeBase.
   using Base::Base;
+  static constexpr llvm::StringLiteral name = "air.async_token";
 };
 
 // Adds a `air.async.token` to the front of the argument list.
