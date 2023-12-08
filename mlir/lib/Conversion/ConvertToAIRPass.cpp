@@ -2871,23 +2871,24 @@ transform::ParToHerdOp::applyToOne(transform::TransformRewriter &rewriter,
                                    scf::ParallelOp target,
                                    transform::ApplyToEachResultList &results,
                                    transform::TransformState &state) {
-  auto ctx = target->getContext();
-  RewritePatternSet patterns(ctx);
-  llvm::SmallSet<air::HerdOp, 2> herdOps;
-  llvm::SmallSet<Operation *, 8> filteredOps;
-  filteredOps.insert(target);
-  patterns.add<ScfParToHerdConversion>(ctx, filteredOps, herdOps,
-                                       getFirstDim());
-  patterns.add<ScfForallToHerdConversion>(ctx, filteredOps, herdOps,
-                                          getFirstDim());
-  (void)applyPatternsAndFoldGreedily(
-      target->getParentWithTrait<OpTrait::IsIsolatedFromAbove>(),
-      std::move(patterns));
-  for (auto h : herdOps) {
-    getHerdNames(h->getParentOfType<ModuleOp>());
-    results.push_back(h);
-  }
-  return DiagnosedSilenceableFailure::success();
+//  auto ctx = target->getContext();
+//  RewritePatternSet patterns(ctx);
+//  llvm::SmallSet<air::HerdOp, 2> herdOps;
+//  llvm::SmallSet<Operation *, 8> filteredOps;
+//  filteredOps.insert(target);
+//  patterns.add<ScfParToHerdConversion>(ctx, filteredOps, herdOps,
+//                                       getFirstDim());
+//  patterns.add<ScfForallToHerdConversion>(ctx, filteredOps, herdOps,
+//                                          getFirstDim());
+//  (void)applyPatternsAndFoldGreedily(
+//      target->getParentWithTrait<OpTrait::IsIsolatedFromAbove>(),
+//      std::move(patterns));
+//  for (auto h : herdOps) {
+//    getHerdNames(h->getParentOfType<ModuleOp>());
+//    results.push_back(h);
+//  }
+//  return DiagnosedSilenceableFailure::success();
+  return DiagnosedSilenceableFailure::definiteFailure();
 }
 
 //===----------------------------------------------------------------------===//
