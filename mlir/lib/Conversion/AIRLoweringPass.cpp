@@ -752,8 +752,8 @@ public:
                   ConversionPatternRewriter &rewriter) const override {
     auto newOp = rewriter.replaceOpWithNewOp<scf::ReduceOp>(
         op, adaptor.getOperands()[0]);
-    auto body = &op.getRegion(0).front();
-    auto newBody = &newOp.getRegion(0).front();
+    auto body = &op.getRegion().front();
+    auto newBody = &newOp.getRegion().front();
 
     for (int i = 0, e = body->getNumArguments(); i < e; i++) {
       body->getArgument(i).replaceAllUsesWith(newBody->getArgument(i));
@@ -1042,10 +1042,7 @@ public:
     });
 
     target.addDynamicallyLegalOp<scf::ReduceOp>([&](scf::ReduceOp op) {
-      for (auto o : op.getOperands())
-        if (o.getType().isa<air::AsyncTokenType>())
-          return false;
-      return true;
+      return !op.getOperand().getType().isa<air::AsyncTokenType>();
     });
 
     target.addDynamicallyLegalOp<scf::ReduceReturnOp>(
