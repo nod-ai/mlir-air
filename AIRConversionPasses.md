@@ -175,8 +175,9 @@ airrt.module_metadata{
 -test-patterns            : Test the given patterns.
 -device                   : AIE device to target.
 -use-objectfifo           : Choose whether to lower data movement ops to aie.objectFifo, or directly to aie.locks.
--generate-shim-dma        : Choose whether to schedule shim data movement via generating AIE  shim DMA program, or AIR runtime.
+-generate-shim-dma        : Choose whether to schedule shim data movement via generating AIE shim DMA program, or AIR runtime.
 -insert-trace-packet-flow : Create packet routed traces for cores and memtiles
+-use-pkt-flow-at-shim-dma : Switch to using packet flows for all data movements at shim DMAs, to enable time-multiplex sharing with control packet flows.
 ```
 ### `-air-to-async`
 
