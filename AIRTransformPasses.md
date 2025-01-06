@@ -598,6 +598,11 @@ _Hoist dma ops into perfectly nested loop_
 
 This pass isolates loops containing dma memcpy ops into perfectly nested loops, by 
 hoisting them out of their previous parent loop.
+
+#### Options
+```
+-scope : AIR hierarchy scope to perform loop splitting under. Must be one of [func, segment, launch].
+```
 ### `-air-label-broadcast-channel-with-tile`
 
 _Label broadcasted channel ops with tile coordinates._
@@ -659,6 +664,11 @@ Optimizes the data movement around L2 memories by rearranging and potentially
 fusing perfect `scf.for` loop nests of `air.channel.put` and `air.channel.get`, 
 which access the same L2 memref, into `scf.for` loop nest patterns mappable to a 
 complex finite-state machine consisting of a multiple of AIE DMA Block Descriptors.
+
+#### Options
+```
+-fusion-scope : AIR hierarchy scope to perform loop fusion under. Must be one of [all, segment, launch].
+```
 ### `-air-loop-merging`
 
 _Merge several nested subloops into a single loop_
@@ -833,6 +843,16 @@ are lowered to loops using `linalg::LinalgLoweringPattern`.
 
 The transforms are biased toward aie.core regions and are intended
 to be run after the air-to-aie pass.
+### `-air-opt-shim-dma-bds`
+
+_Optimize logical air.channel.put/get op into efficient shim dma block descriptor (BD)_
+
+Optimize the logical data movement by transforming them, represented as air.channel.put/get operations, into explicit representation of physical data movement block descriptors (BDs), also represented as air.channel.put/get operations.
+
+#### Options
+```
+-device : AIE device to target.
+```
 ### `-air-ping-pong-transform`
 
 _Lower to pipelining pattern_
@@ -1065,6 +1085,11 @@ _Specialize air.channel op in perfect loop nest with wraps and strides_
 
 This pass specialize air.channel op in perfect loop nest with wraps and strides, for
 efficient mapping to hardware buffer descriptors.
+
+#### Options
+```
+-scope : AIR hierarchy scope to perform loop specialization under. Must be one of [all, segment, func].
+```
 ### `-air-specialize-dma-broadcast`
 
 _Specialize dma operations for broadcast pattern_
