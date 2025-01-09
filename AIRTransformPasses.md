@@ -539,6 +539,11 @@ iteration, by connecting them in the loop-carried dependency path.
 _Skeleton module op pass_
 
 
+### `-air-fuse-alloc-dealloc`
+
+_Fuse pairs of memref.alloc/dealloc ops into the inner-most region containing all uses of the memref._
+
+Fuse pairs of memref.alloc/dealloc into the inner-most region, which contains all uses of the memref.
 ### `-air-fuse-channels`
 
 _Fuse multiple air.channel ops into one_
@@ -1079,6 +1084,11 @@ _Convert functions to return their values with out parameters_
 _Remove LinalgTransformMarker string attributes from linalg ops_
 
 
+### `-air-shrink-memref-sizes-by-access`
+
+_Shrink the size of each memref based on the actual access pattern._
+
+Shrink the size of each memref based on the actual access pattern. This avoids allocating buffers which are too large.
 ### `-air-specialize-channel-wrap-and-stride`
 
 _Specialize air.channel op in perfect loop nest with wraps and strides_
