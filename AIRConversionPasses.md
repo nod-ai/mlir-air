@@ -34,7 +34,7 @@ to used to specify which loop depth to convert.
 
 #### Options
 ```
--depth     : Given a nest of parallel for loops, which depth to map to air.herd
+-depth     : Given a nest of parallel for loops, which depth to map to air.herd. -1 means converting the innermost parallel loop; any other negative value means converting all parallel loops
 -first-dim : Which herd dimension to map to first. Can be zero or one. If set to zero, the 0th dimension of the scf.parallel will be mapped to the x dimension of the herd. If set to one, the 0th dimension of the scf.parallel will be mapped to the y dimension of the herd.
 ```
 ### `-air-par-to-launch`
@@ -51,8 +51,21 @@ the generated `launch` operations with the `has-air-segment` option.
 
 #### Options
 ```
--depth           : Given a nest of parallel for loops, which depth to map to air.launch
+-depth           : Given a nest of parallel for loops, which depth to map to air.launch-1 means converting the innermost parallel loop; any other negative value means converting all parallel loops
 -has-air-segment : Whether to create an air.segment op in generated air.launch regions
+```
+### `-air-par-to-segment`
+
+_Convert parallel loops to air.segment_
+
+This pass converts parallel loop operations to air `segment` operations. The
+iteration space of the parallel loops will be normalized and will become the
+iteration space of the new `segment`. If nested parallel loops are present
+then the `depth` option can to used to specify which loop depth to convert.
+
+#### Options
+```
+-depth : Given a nest of parallel for loops, which depth to map to air.segment-1 means converting the innermost parallel loop; any other negative value means converting all parallel loops
 ```
 ### `-air-split-devices`
 
