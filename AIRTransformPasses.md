@@ -190,14 +190,6 @@ being yielded across loop iterations, directly represent a compute scheduling
 scheme which leads to concurrency between communication and compute in the form of 
 ping-pong buffering.
 
-### `-air-dealias-memref`
-
-_De-alias a memref into multiple memrefs_
-
-This pass detects memrefs which can de-alias into multiple memrefs over time, and
-generates extra copies of this memref. This process can improve the stability of the
-memref-to-buffer mappings.
-
 ### `-air-dependency`
 
 _AIR dependency analysis_
@@ -543,13 +535,6 @@ air.channel @channel_0 [1, 1] {broadcast_shape = [1, 4]}
   air.launch_terminator
 }
 ```
-
-### `-air-enforce-loop-carried-memref-dealloc`
-
-_Enforce memref dealloc ops in loop iterations_
-
-This pass enforces memref deallocation events to happen within each loop
-iteration, by connecting them in the loop-carried dependency path.
 
 ### `-air-example-pass`
 
