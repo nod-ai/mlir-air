@@ -5793,7 +5793,7 @@ generateWaitAllToTerminateBlock(Block &block, OpBuilder &b,
     b.setInsertionPointToEnd(&block);
   if (isBlocking)
     return b.create<air::WaitAllOp>(b.getUnknownLoc(),
-                                    /*result_type*/ std::nullopt,
+                                    /*result_type*/ mlir::Type(),
                                     danglingTokens.takeVector());
   else
     return b.create<air::WaitAllOp>(b.getUnknownLoc(),
@@ -6040,7 +6040,7 @@ public:
         // to make it blocking.
         rewriter.setInsertionPointAfter(tiledLoops.front());
         auto blockingWaitAll = rewriter.replaceOpWithNewOp<air::WaitAllOp>(
-            tiledLoops.front()->getNextNode(), /*result_type*/ std::nullopt,
+            tiledLoops.front()->getNextNode(), /*result_type*/ mlir::Type(),
             tiledLoops.front()->getResult(0));
         rewriter.setInsertionPointAfter(blockingWaitAll);
         auto disconnectedWaitAll = rewriter.create<air::WaitAllOp>(
@@ -6116,7 +6116,7 @@ public:
           else
             rewriter.setInsertionPointToEnd(blk);
           rewriter.create<air::WaitAllOp>(rewriter.getUnknownLoc(),
-                                          /*result_type*/ std::nullopt,
+                                          /*result_type*/ mlir::Type(),
                                           chanTokens);
         }
       }
